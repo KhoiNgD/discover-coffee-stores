@@ -65,12 +65,12 @@
     line-height: 1;
   }
 
-  .subTitle {
+  .subtitle {
     margin-top: 1.25rem;
     max-width: 36rem;
   }
 
-  .buttonWrapper {
+  .button {
     display: flex;
     margin-top: 2rem;
   }
@@ -83,7 +83,7 @@
     line-height: 1;
   }
 
-  .subTitle {
+  .subtitle {
     margin-top: 1.25rem;
   }
 
@@ -108,23 +108,23 @@
     line-height: 1;
   }
 
-  .title2 {
+  .title strong {
     padding-left: 0.5rem;
   }
 
-  .subTitle {
+  .subtitle {
     margin-left: 0px;
     margin-right: 0px;
   }
 
-  .buttonWrapper {
+  .button {
     justify-content: flex-start;
   }
 }
 
 /** xl breakpoint **/
 @media (min-width: 1280px) {
-  .title2 {
+  .title strong {
     display: inline;
   }
 }
