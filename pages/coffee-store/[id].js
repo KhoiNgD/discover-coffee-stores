@@ -3,23 +3,25 @@ import Head from "next/head";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import cls from "classnames";
-import coffeeStoresData from "../../data/coffee-stores.json";
 import styles from "../../styles/coffee-store.module.css";
+import { fetchCoffeeStores } from "../../lib/coffee-stores";
 
-export function getStaticProps(staticProps) {
+export async function getStaticProps(staticProps) {
   const { params } = staticProps;
+  const coffeeStores = await fetchCoffeeStores();
   return {
     props: {
-      coffeeStore: coffeeStoresData.find(
-        (store) => store.id.toString() === params.id
-      ),
+      coffeeStore: coffeeStores.find((store) => store.id === params.id),
     },
   };
 }
 
-export function getStaticPaths() {
+export async function getStaticPaths() {
+  const coffeeStores = await fetchCoffeeStores();
+  const paths = coffeeStores.map((store) => ({ params: { id: store.id } }));
+
   return {
-    paths: [{ params: { id: "0" } }, { params: { id: "1" } }],
+    paths,
     fallback: true,
   };
 }
@@ -30,7 +32,7 @@ const CoffeeStore = (props) => {
     return <div>Loading...</div>;
   }
 
-  const { address, name, neighbourhood, imgUrl } = props.coffeeStore;
+  const { address, neighbourhood, name, imgUrl } = props.coffeeStore;
 
   const handleUpvoteButton = () => {};
 
@@ -43,7 +45,7 @@ const CoffeeStore = (props) => {
       <div className={styles.container}>
         <div className={styles.col1}>
           <div className={styles.backToHomeLink}>
-            <Link href="/">Back to home</Link>
+            <Link href="/">← Back to home</Link>
           </div>
           <div className={styles.nameWrapper}>
             <h1 className={styles.name}>{name}</h1>
